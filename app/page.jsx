@@ -47,8 +47,8 @@ export default function AuthPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const [showPassword, setShowPassword] = useState(false)
-  const [showConfirm, setShowConfirm] = useState(false)
+  const [showPassword, setShowPassword] = useState(true)
+  const [showConfirm, setShowConfirm] = useState(true)
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState(null)
 
