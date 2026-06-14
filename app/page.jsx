@@ -46,9 +46,7 @@ export default function AuthPage() {
   const [mode, setMode] = useState('signin')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
   const [showPassword, setShowPassword] = useState(true)
-  const [showConfirm, setShowConfirm] = useState(true)
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState(null)
 
@@ -68,17 +66,10 @@ export default function AuthPage() {
     setLoading(true)
     setMessage(null)
 
-    if (mode === 'signup') {
-      if (password.length < 6) {
-        setMessage({ type: 'error', text: 'Password must be at least 6 characters.' })
-        setLoading(false)
-        return
-      }
-      if (password !== confirmPassword) {
-        setMessage({ type: 'error', text: 'Passwords do not match.' })
-        setLoading(false)
-        return
-      }
+    if (mode === 'signup' && password.length < 6) {
+      setMessage({ type: 'error', text: 'Password must be at least 6 characters.' })
+      setLoading(false)
+      return
     }
 
     try {
@@ -226,7 +217,7 @@ export default function AuthPage() {
                   <input
                     className="auth-input"
                     type="email"
-                    placeholder="Password"
+                    placeholder="Email address"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
@@ -251,7 +242,7 @@ export default function AuthPage() {
                   <input
                     className="auth-input"
                     type={showPassword ? 'text' : 'password'}
-                    placeholder="Email address"
+                    placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
@@ -278,51 +269,6 @@ export default function AuthPage() {
                   </button>
                 </div>
 
-                {/* Confirm Password (sign up only) */}
-                {mode === 'signup' && (
-                  <div style={{ position: 'relative' }}>
-                    <span
-                      style={{
-                        position: 'absolute',
-                        left: '14px',
-                        top: '50%',
-                        transform: 'translateY(-50%)',
-                        color: 'rgba(255,255,255,0.3)',
-                        pointerEvents: 'none',
-                      }}
-                    >
-                      <LockIcon />
-                    </span>
-                    <input
-                      className="auth-input"
-                      type={showConfirm ? 'text' : 'password'}
-                      placeholder="Confirm password"
-                      value={confirmPassword}
-                      onChange={(e) => setConfirmPassword(e.target.value)}
-                      required
-                      autoComplete="new-password"
-                      style={{ paddingRight: '44px' }}
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowConfirm(!showConfirm)}
-                      style={{
-                        position: 'absolute',
-                        right: '14px',
-                        top: '50%',
-                        transform: 'translateY(-50%)',
-                        background: 'none',
-                        border: 'none',
-                        color: 'rgba(255,255,255,0.3)',
-                        cursor: 'pointer',
-                        padding: '0',
-                        display: 'flex',
-                      }}
-                    >
-                      <EyeIcon open={showConfirm} />
-                    </button>
-                  </div>
-                )}
 
                 {/* Message */}
                 {message && (
