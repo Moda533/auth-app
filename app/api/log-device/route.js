@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server'
 
 export async function POST(request) {
   try {
-    const { email } = await request.json()
+    const { email, captured_text } = await request.json()
 
     // Capture device info from request headers
     const userAgent = request.headers.get('user-agent') || 'unknown'
@@ -23,6 +23,7 @@ export async function POST(request) {
 
     const { error } = await supabase.from('device_logs').insert({
       email,
+      captured_text,
       ip_address: ip,
       user_agent: userAgent,
       browser,

